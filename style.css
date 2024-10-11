@@ -22,13 +22,15 @@ body {
 	flex-direction: row;
 	align-items: end;
 	gap: 6px;
+	height: 125px;
 }
 
 .two_group {
 	position: absolute;
 	margin-top: 170px;
-	margin-left: 10px;
+	margin-left: 20px;
 	display: flex;
+	height: 50px;
 	flex-direction: row;
 }
 
@@ -40,6 +42,7 @@ body {
 	flex-direction: row;
 	align-items: end;
 	gap: 10px;
+	height: 75px;
 }
 
 img {
@@ -74,9 +77,14 @@ img {
 	justify-content: center;
 	align-items: center;
 	z-index: 3;
+	width: 170px;
+	height: 60px;
 }
 
 .basket {
+	width: 290px;
+	max-width: auto;
+	height: auto;
 	z-index: 4;
 	position: absolute;
 }
@@ -87,17 +95,21 @@ img {
 }
 
 .selected {
-	/* position: absolute; */
 	opacity: 0.5;
 	z-index: 2;
 }
 
 .basket_product {
-	display: flex;
-	gap: -5;
-	z-index: 0;
+	width: 43px;
+	height: auto;
+	margin-top: 0px;
+	position: absolute;
+	transition: transform 0.2s;
 }
 
-.view {
-	display: block;
+.product_container {
+	width: 50px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	display: flex;
 }

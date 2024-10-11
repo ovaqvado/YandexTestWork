@@ -3,14 +3,21 @@ const basket = document.getElementById('basket_box')
 const groupItems = document.querySelectorAll('.group_item')
 const dragItems = document.querySelectorAll('.drag_item')
 
-// Drag items for mobile
+button.addEventListener('click', () => {
+	window.open('https://lavka.yandex.ru/')
+})
+
+basket.addEventListener('drop', e => e.preventDefault())
+
+
 let selectedItem = null
-let offsetX = 0
+let offsetX = 20
 let offsetY = 0
 
 function handleDragStart(e) {
 	selectedItem = this
 	this.classList.add('selected')
+	e.dataTransfer.setData('text/plain', this.src)
 }
 
 function handleDragEnd() {
@@ -37,9 +44,9 @@ for (const product of dragItems) {
 	product.addEventListener('touchmove', function (e) {
 		e.preventDefault()
 		if (selectedItem) {
-			const currentX = e.touches[0].clientX - offsetX
-			const currentY = e.touches[0].clientY - offsetY
-			selectedItem.style.position = 'absolute' // Позиционирование для перемещения
+			const currentX = e.touches[0].clientX - 700
+			const currentY = e.touches[0].clientY - 300
+			selectedItem.style.position = 'absolute'
 			selectedItem.style.transform = `translate(${currentX}px, ${currentY}px)`
 		}
 	})
@@ -49,7 +56,6 @@ for (const product of dragItems) {
 			const basketRect = basket.getBoundingClientRect()
 			const itemRect = selectedItem.getBoundingClientRect()
 
-			// Проверка на нахождение товара над корзиной
 			if (
 				itemRect.left < basketRect.right &&
 				itemRect.right > basketRect.left &&
@@ -59,14 +65,13 @@ for (const product of dragItems) {
 				handleProductDrop(selectedItem.src)
 			}
 
-			this.classList.remove('selected')
-			this.style.transform = '' // Сброс позиции
+			selectedItem.classList.remove('selected')
+			selectedItem.style.transform = ''
 			selectedItem = null
 		}
 	})
 }
 
-// Drag over and drop for basket
 basket.addEventListener('dragover', e => {
 	e.preventDefault()
 })
@@ -79,7 +84,6 @@ basket.addEventListener('drop', e => {
 	}
 })
 
-// Touch events for basket
 basket.addEventListener('touchstart', function (e) {
 	e.preventDefault()
 	if (selectedItem) {
@@ -92,6 +96,12 @@ function handleProductDrop(productSrc) {
 	newProduct.src = productSrc
 	newProduct.alt = 'Product'
 	newProduct.classList.add('basket_product')
+
+	const randomX = Math.random() * (basket.offsetWidth - 100)
+	const randomY = Math.random() * (basket.offsetHeight - 50)
+
+	newProduct.style.transform = `translate(${randomX}px, ${randomY}px)`
+
 	basket.appendChild(newProduct)
 
 	const productToRemove = Array.from(dragItems).find(
@@ -102,7 +112,7 @@ function handleProductDrop(productSrc) {
 	}
 
 	const basketProducts = basket.querySelectorAll('.basket_product')
-	if (basketProducts.length >= 2) {
+	if (basketProducts.length > 2) {
 		button.classList.add('view')
 		button.style.display = 'block'
 	} else {
@@ -111,22 +121,25 @@ function handleProductDrop(productSrc) {
 	}
 }
 
-// Drag over group items
 for (const group of groupItems) {
 	group.addEventListener('dragover', e => {
 		e.preventDefault()
 		const activeProduct = group.querySelector('.selected')
 		const currentProduct = e.target
+
 		const isMoveable =
 			activeProduct !== currentProduct &&
 			currentProduct.classList.contains('drag_item')
+
 		if (!isMoveable) {
 			return
 		}
+
 		const nextElement =
 			currentProduct === activeProduct.nextElementSibling
 				? currentProduct.nextElementSibling
 				: currentProduct
+
 		group.insertBefore(activeProduct, nextElement)
 	})
 }
