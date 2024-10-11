@@ -7,11 +7,10 @@ button.addEventListener('click', () => {
 	window.open('https://lavka.yandex.ru/')
 })
 
-basket.addEventListener('drop', e => e.preventDefault())
-
+// basket.addEventListener('drop', e => e.preventDefault())
 
 let selectedItem = null
-let offsetX = 20
+let offsetX = 0
 let offsetY = 0
 
 function handleDragStart(e) {
@@ -97,7 +96,7 @@ function handleProductDrop(productSrc) {
 	newProduct.alt = 'Product'
 	newProduct.classList.add('basket_product')
 
-	const randomX = Math.random() * (basket.offsetWidth - 100)
+	const randomX = Math.random() * (basket.offsetWidth - 70)
 	const randomY = Math.random() * (basket.offsetHeight - 50)
 
 	newProduct.style.transform = `translate(${randomX}px, ${randomY}px)`

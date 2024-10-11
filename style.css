@@ -47,6 +47,7 @@ body {
 
 img {
 	cursor: move;
+	width: 100%;
 }
 
 .btn {
@@ -71,14 +72,14 @@ img {
 }
 
 .basket_box {
-	margin-top: 590px;
+	margin-top: 580px;
 	position: absolute;
 	display: flex;
-	justify-content: center;
+	justify-content: space-around;
 	align-items: center;
 	z-index: 3;
 	width: 170px;
-	height: 60px;
+	height: 10px;
 }
 
 .basket {
@@ -100,16 +101,14 @@ img {
 }
 
 .basket_product {
-	width: 43px;
+	width: 30%;
 	height: auto;
-	margin-top: 0px;
 	position: absolute;
 	transition: transform 0.2s;
 }
 
 .product_container {
 	width: 50px;
-	border: 1px solid #ccc;
 	padding: 10px;
 	display: flex;
 }
